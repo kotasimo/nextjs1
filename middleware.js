@@ -1,10 +1,8 @@
 import { NextResponse } from "next/server";
-import { jwterify, jwtVerify } from "jose"
+import { jwtVerify } from "jose"
 
 export async function middleware(request){
-    const token = "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImR1bW15QGdtYWlsLmNvbSIsImV4cCI6MTc2NTc5ODkyN30.tWV-_ftErQ2ZtjiHqITg1yyhR4nTZDPWR8-AdPQxu14"
-    
-    //const token = await request.headers.get("Authorization")?.split(" ")[1]
+    const token = await request.headers.get("Authorization")?.split(" ")[1]
 
     if(!token){
         return NextResponse.json({message: "トークンがありません"})
@@ -13,7 +11,6 @@ export async function middleware(request){
     try{
         const secretKey = new TextEncoder().encode("next-market-app-book")
         const decodedJwt = await jwtVerify(token, secretKey)
-        console.log("decodedJwt:", decodedJwt)
         return NextResponse.next()
     }catch{
         return NextResponse.json({message: "トークンが正しくないので、ログインしてください"})

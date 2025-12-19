@@ -4,6 +4,7 @@ import { ItemModel } from "../../../../utils/schemaModels";
 
 export async function DELETE(request, context) {
     const params = await context.params
+    const reqBody = await request.json()
     try {
         await connectDB()
         const singleItem = await ItemModel.findById(params.id)
