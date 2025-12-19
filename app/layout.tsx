@@ -1,8 +1,9 @@
 import "./globals.css"
 import Header from "./component/header"
 import Footer from "./component/footer"
+import { ReactNode } from "react"
 
-const RootLayout = ({ children }) => {
+const RootLayout = ({ children }: { children: ReactNode}) => {
   return(
     <html lang="en">
       <body>
